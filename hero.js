@@ -1,9 +1,21 @@
+const Ability = require('./ability');
+
 class Hero {
   constructor() {
-    this.name = '';
+    this._name = '';
     this._alignment = 'NEUTRAL';
-    this._armorClass = 10;
-    this.hitPoints = 5;
+    this._damage = 0;
+
+    this.dexterity = new Ability();
+    this.constitution = new Ability();
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(name) {
+    this._name = name;
   }
 
   get alignment() {
@@ -19,7 +31,11 @@ class Hero {
   }
 
   get armorClass() {
-    return this._armorClass;
+    return 10 + this.dexterity.modifier;
+  }
+
+  get hitPoints() {
+    return 5 + this.constitution.modifier - this._damage;
   }
 
   get deadness() {
@@ -27,7 +43,7 @@ class Hero {
   }
 
   damage(points) {
-    this.hitPoints -= points;
+    this._damage += points;
   }
 }
 

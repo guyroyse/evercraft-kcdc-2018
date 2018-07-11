@@ -45,11 +45,19 @@ describe("Hero", function() {
     it("has a default value of 10", function() {
       expect(subject.armorClass).toBe(10);
     });
+    it("is modified by dexterity modifier", function() {
+      subject.dexterity.score = 14;
+      expect(subject.armorClass).toBe(12);
+    });
   });
 
   describe("#hitPoints", function() {
     it("has a default value of 5", function() {
       expect(subject.hitPoints).toBe(5);
+    });
+    it("is modified by constitution modifier", function() {
+      subject.constitution.score = 14;
+      expect(subject.hitPoints).toBe(7);
     });
     it("goes down when hero is damaged", function() {
       subject.damage(2);
