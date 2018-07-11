@@ -51,5 +51,9 @@ describe("Hero", function() {
     it("has a default value of 5", function() {
       expect(subject.hitPoints).toBe(5);
     });
+    it("goes down when hero is damaged", function() {
+      subject.damage(2);
+      expect(subject.hitPoints).toBe(3);
+    });
   });
 });

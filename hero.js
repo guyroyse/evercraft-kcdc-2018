@@ -2,8 +2,12 @@ class Hero {
   constructor() {
     this.name = '';
     this._alignment = 'NEUTRAL';
-    this.armorClass = 10;
+    this._armorClass = 10;
     this.hitPoints = 5;
+  }
+
+  get armorClass() {
+    return this._armorClass;
   }
 
   get alignment() {
@@ -16,6 +20,10 @@ class Hero {
     } else {
       throw `Invalid alignment of '${alignment}'`;
     }
+  }
+
+  damage(points) {
+    this.hitPoints -= points;
   }
 }
 

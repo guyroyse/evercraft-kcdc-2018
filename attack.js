@@ -4,7 +4,19 @@ class Attack {
   }
 
   resolve(roll) {
-    this.hit = roll >= this.defender.armorClass;
+    this.hit = this.isHit(roll);
+    if (this.hit) {
+      let points = this.calculateDamage(roll);
+      this.defender.damage(points);
+    }
+  }
+
+  isHit(roll) {
+    return roll >= this.defender.armorClass;
+  }
+
+  calculateDamage(roll) {
+    return roll === 20 ? 2 : 1;
   }
 }
 
