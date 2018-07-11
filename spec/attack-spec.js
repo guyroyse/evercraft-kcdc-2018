@@ -7,7 +7,7 @@ describe("Attack", function() {
 
   beforeEach(function() {
     defender = new Hero();
-    spyOnProperty(defender, 'armorClass').and.returnValue(10);
+    spyOnProperty(defender, 'armorClass', 'get').and.returnValue(10);
     spyOn(defender, 'damage');
     subject = new Attack(defender);
   });
