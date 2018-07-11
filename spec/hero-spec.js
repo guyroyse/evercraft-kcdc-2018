@@ -56,4 +56,22 @@ describe("Hero", function() {
       expect(subject.hitPoints).toBe(3);
     });
   });
+
+  describe("#deadness", function() {
+    it("is false when undamaged", function() {
+      expect(subject.deadness).toBe(false);
+    });
+    it("is false when damaged", function() {
+      subject.damage(2);
+      expect(subject.deadness).toBe(false);
+    });
+    it("is true when damaged to 0", function() {
+      subject.damage(5);
+      expect(subject.deadness).toBe(true);
+    });
+    it("is true when damaged below 0", function() {
+      subject.damage(5000);
+      expect(subject.deadness).toBe(true);
+    });
+  });
 });

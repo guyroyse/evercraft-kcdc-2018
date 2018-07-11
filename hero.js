@@ -6,10 +6,6 @@ class Hero {
     this.hitPoints = 5;
   }
 
-  get armorClass() {
-    return this._armorClass;
-  }
-
   get alignment() {
     return this._alignment;
   }
@@ -20,6 +16,14 @@ class Hero {
     } else {
       throw `Invalid alignment of '${alignment}'`;
     }
+  }
+
+  get armorClass() {
+    return this._armorClass;
+  }
+
+  get deadness() {
+    return this.hitPoints <= 0;
   }
 
   damage(points) {
