@@ -6,6 +6,7 @@ class Hero {
     this._alignment = 'NEUTRAL';
     this._damage = 0;
 
+    this.strength = new Ability();
     this.dexterity = new Ability();
     this.constitution = new Ability();
   }
@@ -34,12 +35,20 @@ class Hero {
     return 10 + this.dexterity.modifier;
   }
 
+  get maxHitPoints() {
+    return Math.max(5 + this.constitution.modifier, 1);
+  }
+
   get hitPoints() {
-    return 5 + this.constitution.modifier - this._damage;
+    return this.maxHitPoints - this._damage;
   }
 
   get deadness() {
     return this.hitPoints <= 0;
+  }
+
+  get attackModifier() {
+    return this.strength.modifier;
   }
 
   damage(points) {

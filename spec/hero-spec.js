@@ -59,6 +59,10 @@ describe("Hero", function() {
       subject.constitution.score = 14;
       expect(subject.hitPoints).toBe(7);
     });
+    it("cannot be modified below 1 by constitution", function() {
+      subject.constitution.score = 1;
+      expect(subject.hitPoints).toBe(1);
+    });
     it("goes down when hero is damaged", function() {
       subject.damage(2);
       expect(subject.hitPoints).toBe(3);
@@ -80,6 +84,16 @@ describe("Hero", function() {
     it("is true when damaged below 0", function() {
       subject.damage(5000);
       expect(subject.deadness).toBe(true);
+    });
+  });
+
+  describe("#attackModifier", function() {
+    it("has default value of 0", function() {
+      expect(subject.attackModifier).toBe(0);
+    });
+    it("is modified by strength modifier", function() {
+      subject.strength.score = 14
+      expect(subject.attackModifier).toBe(2);
     });
   });
 });
