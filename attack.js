@@ -1,5 +1,6 @@
 class Attack {
-  constructor(defender) {
+  constructor(attacker, defender) {
+    this.attacker = attacker;
     this.defender = defender;
   }
 
@@ -12,11 +13,14 @@ class Attack {
   }
 
   isHit(roll) {
-    return roll >= this.defender.armorClass;
+    return roll + this.attacker.attackModifier >=
+      this.defender.armorClass;
   }
 
   calculateDamage(roll) {
-    return roll === 20 ? 2 : 1;
+    return roll === 20 ?
+      this.attacker.criticalDamage :
+      this.attacker.attackDamage;
   }
 }
 

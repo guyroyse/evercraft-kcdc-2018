@@ -3,21 +3,30 @@ const Hero = require('../hero');
 
 describe("Attack", function() {
 
-  let subject, defender;
+  let subject, attacker, defender;
 
   beforeEach(function() {
     defender = new Hero();
-    spyOnProperty(defender, 'armorClass', 'get').and.returnValue(10);
+    spyOnProperty(defender, 'armorClass', 'get')
+      .and.returnValue(10);
     spyOn(defender, 'damage');
-    subject = new Attack(defender);
+
+    attacker = new Hero();
+    spyOnProperty(attacker, 'attackModifier', 'get')
+      .and.returnValue(2);
+    spyOnProperty(attacker, 'attackDamage', 'get')
+      .and.returnValue(3);
+    spyOnProperty(attacker, 'criticalDamage', 'get')
+      .and.returnValue(7);
+
+    subject = new Attack(attacker, defender);
   });
 
-  describe("when roll is less than defender's armor class", function() {
+  describe("when roll plus attack modifier is less than defender's armor class", function() {
     beforeEach(function() {
-      subject.resolve(9);
+      subject.resolve(7);
     });
     it("misses", function() {
-      subject.resolve(9);
       expect(subject.hit).toBe(false);
     });
     it("does no damage", function() {
@@ -27,27 +36,27 @@ describe("Attack", function() {
 
   describe("when roll meets defender's armor class", function() {
     beforeEach(function() {
-      subject.resolve(10);
+      subject.resolve(8);
     });
 
     it("hits", function() {
       expect(subject.hit).toBe(true);
     });
     it("does a point of damage", function() {
-      expect(defender.damage).toHaveBeenCalledWith(1);
+      expect(defender.damage).toHaveBeenCalledWith(3);
     })
   });
 
   describe("when roll beats defender's armor class", function() {
     beforeEach(function() {
-      subject.resolve(11);
+      subject.resolve(9);
     });
 
     it("hits", function() {
       expect(subject.hit).toBe(true);
     });
     it("does a point of damage", function() {
-      expect(defender.damage).toHaveBeenCalledWith(1);
+      expect(defender.damage).toHaveBeenCalledWith(3);
     })
   });
 
@@ -60,7 +69,7 @@ describe("Attack", function() {
       expect(subject.hit).toBe(true);
     });
     it("does double damage", function() {
-      expect(defender.damage).toHaveBeenCalledWith(2);
+      expect(defender.damage).toHaveBeenCalledWith(7);
     })
   });
 });
