@@ -96,4 +96,32 @@ describe("Hero", function() {
       expect(subject.attackModifier).toBe(2);
     });
   });
+
+  describe("#attackDamage", function() {
+    it("has default value of 1", function() {
+      expect(subject.attackDamage).toBe(1);
+    });
+    it("is modified by strength modifier", function() {
+      subject.strength.score = 14
+      expect(subject.attackDamage).toBe(3);
+    });
+    it("cannot be modified below 1 by strength modifier", function() {
+      subject.strength.score = 6
+      expect(subject.attackDamage).toBe(1);
+    });
+  });
+
+  describe("#criticalDamage", function() {
+    it("has default value of 2", function() {
+      expect(subject.criticalDamage).toBe(2);
+    });
+    it("is modified by twice the strength modifier", function() {
+      subject.strength.score = 14
+      expect(subject.criticalDamage).toBe(6);
+    });
+    it("cannot be modified below 1 by strength modifier", function() {
+      subject.strength.score = 6
+      expect(subject.criticalDamage).toBe(1);
+    });
+  });
 });

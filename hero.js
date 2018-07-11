@@ -51,6 +51,14 @@ class Hero {
     return this.strength.modifier;
   }
 
+  get attackDamage() {
+    return Math.max(1, 1 + this.strength.modifier);
+  }
+
+  get criticalDamage() {
+    return Math.max(1, 2 + this.strength.modifier * 2);
+  }
+
   damage(points) {
     this._damage += points;
   }
